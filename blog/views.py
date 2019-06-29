@@ -1,8 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Post
+from .forms import ContactForm
 
-# Create your views here.
+
 def home(request):
-	content = {'posts': Post.objects.all()}
+	if request.method == "POST":
+		form = ContactForm(request.POST)
+		if form.is_valid():
+			pass
+	else:
+		form = ContactForm()
+	content = {'form': form}
 	return render(request, "blog/home.html", content)
