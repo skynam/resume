@@ -1,0 +1,304 @@
+{% extends 'about/base.html' %}
+{% block content %}
+{% load static %}
+    <div id="#top"></div>
+    <section id="home">
+        <div class="banner-container">
+            <img src="{{ banner.banner.url }}" alt="banner" />
+            <div class="container banner-content">
+                <div id="da-slider" class="da-slider">
+                    {% for item in selling_point %}
+                    <div class="da-slide">
+                        <h2>{{ item.selling_point }}</h2>
+                        <p>{{ item.description }}</p>
+                        <div class="da-img"></div>
+                    </div>
+                    {% endfor %}
+    			<!--  <nav class="da-arrows">
+                        <span class="da-arrows-prev"></span>
+                        <span class="da-arrows-next"></span>
+                    </nav> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="introText">
+        <div class="container">
+            <div class="text-center">
+                {% if self_introduction %}
+                    <h1>{{ self_introduction.one_phrase_introduction }}</h1>
+                    <p>{{ self_introduction.detailed_introduction }}</p>
+                {% else %}
+                    <h1>No Content!</h1>
+                    <p>No Content!</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </section>
+    <!--About-->
+    <section id="aboutUs" class="secPad">
+        <div class="container">
+            <div class="heading text-center">
+                <!-- Heading -->
+                {% if what_i_do %}
+                    <h2>{{ what_i_do.who_i_am }}</h2>
+                    <p>{{ what_i_do.more_about_who_i_am }}</p>
+                {% else %}
+                    <h2>No Content!</h2>
+                    <p>No Content!</p>
+                {% endif %}
+            </div>
+            <div class="row">
+                <!-- item -->
+                {% for item in what_i_do_item %}
+                <div class="col-md-4 text-center tileBox">
+                    <div class="txtHead"> <i class="fa {{ item.icon }}"></i>
+                        <h3>{{ item.title }}</h3>
+                    </div>
+                    <p>{{ item.description }}</p>
+                </div>
+                {% endfor %}
+                <!-- end: -->
+            </div>
+        </div>
+    </section>
+    <!--Quote-->
+    <!--<section id="quote" class="bg-parlex">
+        <div class="parlex-back">
+            <div class="container secPad text-center">
+    			<h2>If I asked people what they wanted, they would have said ‘Faster Horses’.</h2><h3>-Henry Ford</h3>
+            </div>
+        </div>
+    </section>-->
+
+    <!--Skills-->
+    <section id="skills" class="secPad white">
+    	<div class="container">
+        <div class="heading text-center">
+                <!-- Heading -->
+                <h2 id="my-skill-title">My Skills</h2>
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>-->
+            </div>
+        	<div class="row">
+                {% for s_item in skill %}
+                <div class="col-sm-6">
+                    <h2 class="my-skill-category">{{ s_item.category }}</h2>
+                    <p class="mrgBtm20">{{ s_item.description }}</p>
+                    {% for item in skill_item %}
+                    {% if item.category.category == s_item.category %}
+                    <div class="row">
+                        <div class="col-md-2 skilltitle">{{ item.title }}</div>
+                        <div class="col-md-8">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{ item.how_sufficient_you_are }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.how_sufficient_you_are }}%;">
+                                    <span class="sr-only">{{ item.how_sufficient_you_are }}% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}    
+                </div>
+                {% endfor %}       
+            </div>
+        </div>        
+    </section>
+
+    <!--Experience-->
+    <section id="experience" class="secPad">
+    	<div class="container">     
+           <div class="heading text-center">
+                <!-- Heading -->
+                <h2>Professional Experience</h2>
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>-->
+            </div>
+            <div id="timeline">
+                <div class="row timeline-movement timeline-movement-top">
+                    <div class="timeline-badge timeline-future-movement">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </div>
+                    <div class="timeline-badge timeline-filter-movement">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </a>
+                    </div>
+
+                </div>
+                {% for year_item in professional_experience_year %}
+                <div class="row timeline-movement">
+                    <div class="timeline-badge">
+                        <span class="timeline-balloon-date-day">{{ year_item }}</span>
+                    </div>
+                    {% for item in professional_experience %}
+                    {% if item.year == year_item %}
+                    {% if item.position == 'left' %}
+                    <div class="col-sm-6  timeline-item">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="timeline-panel credits">
+                                    <ul class="timeline-panel-ul">
+                                        <li><span class="importo">{{ item.job_title }}</span></li>
+                                        <li><span class="causale">{{ item.job_description }}</span> </li>
+                                        <li>
+                                            <p>
+                                                <small class="text-muted">
+                                                    {{ item.first_day.month }}/{{ item.first_day.year }} - 
+                                                    {% if item.to_present == True %}
+                                                    Present
+                                                    {% else %}
+                                                    {{ item.last_day.month }}/{{ item.last_day.year }}
+                                                    {% endif %}
+                                                </small>
+                                            </p> 
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-sm-offset-6 col-sm-6  timeline-item">
+                        <div class="row">
+                            <div class="col-sm-offset-1 col-sm-11">
+                                <div class="timeline-panel credits">
+                                    <ul class="timeline-panel-ul">
+                                        <li><span class="importo">{{ item.job_title }}</span></li>
+                                        <li><span class="causale">{{ item.job_description }}</span> </li>
+                                        <li>
+                                            <p>
+                                                <small class="text-muted">
+                                                    {{ item.first_day.month }}/{{ item.first_day.year }} - 
+                                                    {% if item.to_present == True %}
+                                                    Present
+                                                    {% else %}
+                                                    {{ item.last_day.month }}/{{ item.last_day.year }}
+                                                    {% endif %}
+                                                </small>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!--Portfolio-->
+    <section id="portfolio" class="page-section section appear clearfix secPad">
+        <div class="container">
+
+            <div class="heading text-center">
+                <!-- Heading -->
+                <h2>Portfolio</h2>
+                <p>Check out the project I've been responsible as a Project Executive</p>
+            </div>
+
+            <div class="row">
+                <nav id="filter" class="col-md-12 text-center">
+                    <ul>
+                        <li><a href="#" class="current btn-theme btn-small" data-filter="*">All</a></li>
+                        {% for item in portfolio %}
+                        <li><a href="#" class="btn-theme btn-small" data-filter=".{{ item.tag }}">{{ item.category }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="portfolio-items isotopeWrapper clearfix" id="3">
+                            {% for item in portfolio_item %}
+                            <article class="col-sm-4 isotopeItem {{ item.category.tag }}">
+                                <div class="portfolio-item">
+                                    <img src="{{ item.image.url }}" alt="" />
+                                    <div class="portfolio-desc align-center">
+                                        <div class="folio-info">
+                                            <a href="{{ item.link }}" class="fancybox" target="_blank">
+                                                <h5>{{ item.project_name }}</h5>
+                                                <!--<i class="fa fa-arrows-alt fa-2x"></i></a>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Contact -->
+    <section id="contactUs" class="page-section secPad">
+        <div class="container">
+
+            <div class="row">
+                <div class="heading text-center">
+                    <!-- Heading -->
+                    <h2>Let's Keep In Touch!</h2>
+                    <p>Thank you for visiting out my profile. If you would like to get into contact with me, please fill out the form below.</p>
+                </div>
+            </div>
+
+            <div class="row mrgn30">
+
+                <form method="post" action="" id="contactfrm" role="form">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" title="Please enter your name (at least 2 characters)">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" title="Please enter a valid email address">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="comments">Comments</label>
+                            <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message…" title="Please enter your message (at least 10 characters)"></textarea>
+                        </div>
+                        <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
+                        <div class="result"></div>
+                    </div>
+                </form>
+                <div class="col-sm-4">
+                    <h4>Address:</h4>
+                    <address>
+                        WebThemez Company<br>
+                        134 Stilla. Tae., 414515<br>
+                        Leorislon, SA 02434-34534 USA
+                        <br>
+                    </address>
+                    <h4>Phone:</h4>
+                    <address>
+                        12345-49589-2<br>
+                    </address>
+                </div>
+            </div>
+        </div>
+        <!--/.container-->
+    </section>
+<script type="text/javascript">
+    function lastWord() {
+        var category = document.getElementsByClassName("my-skill-category");
+        var i;
+        for (i = 0; i < category.length; i++) {
+        console.log(x[i]);
+        x[i].style.backgroundColor = "red";
+        }
+    }
+    lastWord()
+</script>
+{% endblock content %}
