@@ -1150,3 +1150,12 @@ footer {
     position: relative;
     top: 12px;
 }
+
+#da-slider {
+    position: relative;
+    left: -10%;
+}
+
+@media only screen and (max-width: 600px) {
+    #home h2 {font-size: 21px;}
+}
